@@ -8,8 +8,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/healthcheck', require('./routes/index').router);
-app.use('/items', require('./routes/items').router);
+app.use('/groups', require('./routes/groups'));
+// app.use('/items', require('./routes/items').router);
 
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {

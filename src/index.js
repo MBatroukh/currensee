@@ -1,5 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import CoinApp from './Coin'
+import LandingScreen from './Landing'
 
-ReactDOM.render(<CoinApp />, document.getElementById('root'))
+ReactDOM.render(<LandingScreen />, document.getElementById('root'))
