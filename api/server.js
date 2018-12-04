@@ -9,16 +9,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/groups', require('./routes/groups'));
-// app.use('/items', require('./routes/items').router);
+// app.use('/collectables', require('./routes/collectables'));
 
 app.use((err, req, res, next) => {
-    if (err.name === 'UnauthorizedError') {
-        const errors = [
-            { message: 'unauthorized' },
-        ];
-
-        res.status(401).json({ errors });
-    }
+    res.status(401).json({ err: err.message })
 });
 
 module.exports = app;

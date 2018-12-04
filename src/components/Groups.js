@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import CollectionCard from './Card'
+import Grid from '@material-ui/core/Grid';
 
 class Collections extends Component {
     state = {
@@ -13,7 +15,6 @@ class Collections extends Component {
     getCollections = async () => {
         try {
             const res = await axios.get(`/groups`)
-            console.log(res)
             this.setState({ collections: res.data.data })
         } catch (e) {
             console.log(e)
@@ -23,16 +24,19 @@ class Collections extends Component {
     render() {
         const { collections } = this.state
         return (
-            <div>
+            <Grid container spacing={24}>
                 {collections.map(collection => (
-                    <div key={collection._id}>
-                        <h3>{collection.name}</h3>
-                        <p>{collection.description}</p>
-                    </div>
+                    <Grid item xs={4} key={collection._id}>
+                        <CollectionCard
+                            id={collection._id}
+                            title={collection.name}
+                            description={collection.description}
+                        />
+                    </Grid>
                 ))}
-                {/* {console.log(collections)} */}
-                {JSON.stringify(collections, null, 4)}
-            </div>
+            </Grid>
+            // {/* {console.log(collections)} */}
+            // {JSON.stringify(collections, null, 4)}
         )
     }
 }

@@ -1,20 +1,22 @@
-// import React from 'react'
-// // import PropTypes from 'prop-types'
+// ! Delete eventually
 
-// const Item = props => {
-//     const { denomination, country, name, year } = props
-//     return (
-//         <>
-//             <td>{year}</td>
-//             <td>{name}</td>
-//             <td>{country}</td>
-//             <td>{denomination}</td>
-//         </>
-//     )
+import React from 'react'
+// import PropTypes from 'prop-types'
+
+const Item = props => {
+    const { denomination, country, name, year } = props
+    return (
+        <>
+            <td>{year}</td>
+            <td>{name}</td>
+            <td>{country}</td>
+            <td>{denomination}</td>
+        </>
+    )
+}
+
+// Todo.propTypes = {
+//     description: PropTypes.string.isRequired
 // }
 
-// // Todo.propTypes = {
-// //     description: PropTypes.string.isRequired
-// // }
-
-// export default Item
+export default Item

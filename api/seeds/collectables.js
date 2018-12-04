@@ -1,3 +1,5 @@
+// ! File to be removed
+
 // Require post and comment models
 const Collectable = require('../models/Collectable')
 // Require our fake users
