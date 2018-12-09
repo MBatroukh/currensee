@@ -28,9 +28,17 @@ const CollectionCard = (props) => (
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    <Link to={`/groups/${props.id}`}>View Collection</Link>
-                </Button>
+                {!props.addCollection ?
+                    <Link to={`/groups/${props.id}`}>
+                        <Button size="small" color="primary">
+                            View Collection
+                        </Button>
+                    </Link>
+                    :
+                    <Button size="small" color="primary" onClick={props.handleModalOpen}>
+                        Create New Collection
+                    </Button>
+                }
             </CardActions>
         </Card>
     </CardWrapper >
@@ -38,8 +46,8 @@ const CollectionCard = (props) => (
 
 const CardWrapper = styled.div`
     .collectionImg{
-        height: 145px;
-    }
+            height: 145px;
+}
 `;
 
 

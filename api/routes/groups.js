@@ -16,6 +16,19 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+// Get list of all collections
+router.get('/list', async (req, res, next) => {
+    try {
+        const docs = await Group.find({}, { name: 1 })
+
+        res.status(200).send({
+            data: docs
+        })
+    } catch (e) {
+        next(e)
+    }
+})
+
 // Get collection items
 router.get('/:group_id', async (req, res, next) => {
     // 1. Get group_id out of params
@@ -28,6 +41,60 @@ router.get('/:group_id', async (req, res, next) => {
         // 3. If we fins that specific user, send back 200 + the user doc
         res.status(200).send({
             data: [doc]
+        })
+    } catch (e) {
+        // 4. If we dont, handle the error
+        next(e)
+    }
+})
+
+//DELETE /post/:post_id
+router.delete('/:group_id', async (req, res, next) => {
+    const { group_id } = req.params
+    try {
+        const doc = await Group.findByIdAndRemove(group_id)
+        res.status(204).send({ data: [doc] })
+    } catch (e) {
+        next(e)
+    }
+})
+
+//POST /posts
+router.post('/', async (req, res, next) => {
+    const { name, description } = req.body
+    try {
+        const doc = new Group({ name, description })
+        await doc.save()
+        res.status(201).send({ data: [doc] })
+    } catch (e) {
+        next(e)
+    }
+})
+
+// COLLECTABLES
+// Get collection items
+router.get('/:group_id/:collectable_id', async (req, res, next) => {
+    // 1. Get group_id out of params
+    const groupId = req.params.group_id
+    const collectableId = req.params.collectable_id
+    try {
+        // 2. look up a user by that is
+        // const doc = await Group.findById(groupId).find({ "collectables._id": collectableId })
+
+        const doc = await Group.find({
+            _id: groupId
+        },
+            {
+                collectables: {
+                    $elemMatch: {
+                        _id: collectableId
+                    }
+                }
+            })
+
+        // 3. If we fins that specific user, send back 200 + the user doc
+        res.status(200).send({
+            data: doc
         })
     } catch (e) {
         // 4. If we dont, handle the error

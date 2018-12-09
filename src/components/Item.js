@@ -1,22 +1,18 @@
-// ! Delete eventually
-
 import React from 'react'
-// import PropTypes from 'prop-types'
+
 
 const Item = props => {
-    const { denomination, country, name, year } = props
+    const { denomination, country, name, year, handleModalOpen } = props
+
     return (
         <>
             <td>{year}</td>
             <td>{name}</td>
             <td>{country}</td>
             <td>{denomination}</td>
+            <td><button onClick={() => handleModalOpen(year, name, country, denomination)}>View</button></td>
         </>
     )
 }
-
-// Todo.propTypes = {
-//     description: PropTypes.string.isRequired
-// }
 
 export default Item

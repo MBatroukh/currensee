@@ -1,13 +1,42 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import MaterialTable from './Table'
+// import Button from '@material-ui/core/Button'
+import SimpleModal from './Modal'
 
 // todo make this a stateless function
 
 class Group extends Component {
     state = {
-        items: null
+        items: null,
+        selectedItem: null,
+        open: false,
+        year: null,
+        name: null,
+        country: null,
+        denomination: null,
     }
+
+    handleOpen = (year, name, country, denomination, measurement, weight, note) => {
+        this.setState({
+            open: true,
+            selectedItem: {
+                year,
+                name,
+                country,
+                denomination,
+                measurement,
+                weight,
+                note
+            }
+        });
+        console.log(this.state.selectedItem)
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+        console.log("Closed")
+    };
 
     componentDidMount() {
         this.getCollectionItems()
@@ -24,14 +53,18 @@ class Group extends Component {
     }
 
     render() {
-        const { items } = this.state
+        const { items, selectedItem } = this.state
         if (!items) return <p>Loading...</p>
         return (
             <>
-                {console.log("Group", items)}
-                < MaterialTable
+                <MaterialTable
                     items={items}
+                    handleModalOpen={this.handleOpen}
                 />
+                {/* <Button onClick={this.handleOpen}>Open Modal</Button> */}
+                {selectedItem !== null &&
+                    <SimpleModal selectedItem={selectedItem} isClosed={this.handleClose} isOpen={this.state.open} />
+                }
             </>
         )
     }

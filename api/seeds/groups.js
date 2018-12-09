@@ -21,6 +21,8 @@ const Coins = new Group({
             year: '2012',
             country: 'Greece',
             denomination: '0.05',
+            measurement: '20mm',
+            weight: '2 grams'
         },
         {
             name: 'Veteran Penny',
