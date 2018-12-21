@@ -5,9 +5,9 @@ const { Group } = require('../models/Group')
 const groups = []
 
 // Create Fake user
-const Coins = new Group({
-    name: "Coins",
-    description: "My Coin Collection",
+const Canadian = new Group({
+    name: "Canadian",
+    description: "Canadian coin collection",
     collectables: [
         {
             name: 'Curling Coin',
@@ -19,7 +19,7 @@ const Coins = new Group({
         {
             name: 'Olympic Nickel',
             year: '2012',
-            country: 'Greece',
+            country: 'Canada',
             denomination: '0.05',
             measurement: '20mm',
             weight: '2 grams'
@@ -35,13 +35,13 @@ const Coins = new Group({
 })
 
 // Add to our fake user array
-groups.push(Coins)
+groups.push(Canadian)
 
-const HotWheels = new Group({
-    name: 'Hot Wheels'
+const Foreigns = new Group({
+    name: 'Foreigns'
 })
 
-groups.push(HotWheels)
+groups.push(Foreigns)
 
 // Make out fake users available outside of this file
 module.exports = groups

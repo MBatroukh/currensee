@@ -102,4 +102,28 @@ router.get('/:group_id/:collectable_id', async (req, res, next) => {
     }
 })
 
+// Add collection item
+router.post('/:group_id', async (req, res, next) => {
+    const { name, year, country, denomination, note, measurement, weight } = req.body
+    const groupId = req.params.group_id
+    try {
+        const doc = new Collectable({ name, year, country, denomination, note, measurement, weight })
+        await doc.save()
+
+        // get group
+        const group = await Group.findById(groupId)
+
+        //update group
+        group.collectables.push(doc)
+
+        // save group
+        await group.save()
+
+        res.status(201).send({ data: group })
+    } catch (e) {
+        next(e)
+    }
+
+})
+
 module.exports = router
