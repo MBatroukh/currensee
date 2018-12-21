@@ -1,7 +1,7 @@
 const express = require('express')
 // const Router = express.Router
 const router = express.Router()
-const { Group } = require('../models/Group')
+const { Group, Collectable } = require('../models/Group')
 
 // Get /collections
 router.get('/', async (req, res, next) => {
