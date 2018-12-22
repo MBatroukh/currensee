@@ -29,11 +29,16 @@ const CollectionCard = (props) => (
             </CardActionArea>
             <CardActions>
                 {!props.addCollection ?
-                    <Link to={`/groups/${props.id}`}>
-                        <Button size="small" color="primary">
-                            View Collection
+                    <>
+                        <Link to={`/groups/${props.id}`}>
+                            <Button size="small" color="primary">
+                                View Collection
+                            </Button>
+                        </Link>
+                        <Button size="small" color="primary" onClick={() => props.deleteCollection(props.id)}>
+                            Remove Collection
                         </Button>
-                    </Link>
+                    </>
                     :
                     <Button size="small" color="primary" onClick={props.handleModalOpen}>
                         Create New Collection

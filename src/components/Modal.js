@@ -16,16 +16,18 @@ class SimpleModal extends React.Component {
             // ...this.state.item,
             [field]: value
         })
-        console.log(this.state.collectionDescription, this.state.collectionName)
+        // console.log(this.state.collectionDescription, this.state.collectionName)
     }
 
     handleCreateCollection = () => {
+        const { isClosed, getCollections } = this.props
         axios.post('/groups', {
             name: this.state.collectionName,
             description: this.state.collectionDescription
         })
             .then(function (response) {
-                console.log(response);
+                isClosed()
+                getCollections()
             })
             .catch(function (error) {
                 console.log(error);

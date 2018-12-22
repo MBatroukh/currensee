@@ -33,6 +33,12 @@ class Collections extends Component {
         }
     }
 
+    deleteCollection = async id => {
+        // todo Need To Create modal to verify deletion of collection
+        await axios.delete(`/groups/${id}`)
+        this.getCollections()
+    }
+
     render() {
         const { collections } = this.state
         return (
@@ -44,6 +50,7 @@ class Collections extends Component {
                                 id={collection._id}
                                 title={collection.name}
                                 description={collection.description}
+                                deleteCollection={this.deleteCollection}
                             />
                         </Grid>
                     ))}
@@ -55,7 +62,12 @@ class Collections extends Component {
                         />
                     </Grid>
                 </Grid>
-                <SimpleModal addCollection isClosed={this.handleClose} isOpen={this.state.open} />
+                <SimpleModal
+                    addCollection
+                    isClosed={this.handleClose}
+                    isOpen={this.state.open}
+                    getCollections={this.getCollections()}
+                />
             </>
             // {/* {console.log(collections)} */}
             // {JSON.stringify(collections, null, 4)}
