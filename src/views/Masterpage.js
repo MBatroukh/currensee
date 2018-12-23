@@ -22,6 +22,7 @@ import Eject from '@material-ui/icons/Eject';
 
 import Groups from '../components/Groups'
 import Group from '../components/Group'
+import AddCollectableModal from '../components/modals/AddCollectable'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 const drawerWidth = 240;
@@ -91,6 +92,7 @@ const styles = theme => ({
 class Masterpage extends React.Component {
     state = {
         open: false,
+        AddCollectableModal: false
     };
 
     handleDrawerOpen = () => {
@@ -99,6 +101,15 @@ class Masterpage extends React.Component {
 
     handleDrawerClose = () => {
         this.setState({ open: false });
+    };
+
+    handleClose = () => {
+        this.setState({ AddCollectableModal: false });
+    };
+
+    handleOpen = () => {
+        this.setState({ AddCollectableModal: true });
+        console.log(this.state.AddCollectableModal)
     };
 
     render() {
@@ -126,7 +137,7 @@ class Masterpage extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6" color="inherit" noWrap>
-                                Mini variant drawer
+                                CurrenSee
                         </Typography>
                         </Toolbar>
                     </AppBar>
@@ -156,7 +167,7 @@ class Masterpage extends React.Component {
                                 <ListItemText primary="View All Collections" />
                             </ListItem>
                             <ListItem button>
-                                <ListItemIcon><Add /></ListItemIcon>
+                                <ListItemIcon onClick={this.handleOpen}><Add /></ListItemIcon>
                                 <ListItemText primary="Add Collectable" />
                             </ListItem>
                         </List>
@@ -175,6 +186,10 @@ class Masterpage extends React.Component {
                         <Route path="/groups/:groupId" component={Group} />
                         {/* </div> */}
                     </main>
+                    <AddCollectableModal
+                        isClosed={this.handleClose}
+                        isOpen={this.state.AddCollectableModal}
+                    />
                 </div>
             </Router>
         );

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import MaterialTable from './Table'
-// import Button from '@material-ui/core/Button'
 import SimpleModal from './Modal'
 
 // todo make this a stateless function
@@ -15,6 +14,7 @@ class Group extends Component {
         name: null,
         country: null,
         denomination: null,
+        groupName: null,
     }
 
     handleOpen = (year, name, country, denomination, measurement, weight, note) => {
@@ -27,10 +27,10 @@ class Group extends Component {
                 denomination,
                 measurement,
                 weight,
-                note
+                note,
             }
         });
-        console.log(this.state.selectedItem)
+        console.log(this.state.groupName)
     };
 
     handleClose = () => {
@@ -46,17 +46,18 @@ class Group extends Component {
         try {
             const { groupId } = this.props.match.params
             const res = await axios.get(`/groups/${groupId}`)
-            this.setState({ items: res.data.data[0].collectables })
+            this.setState({ items: res.data.data[0].collectables, groupName: res.data.data[0].name })
         } catch (e) {
             console.log(e)
         }
     }
 
     render() {
-        const { items, selectedItem } = this.state
+        const { items, selectedItem, groupName } = this.state
         if (!items) return <p>Loading...</p>
         return (
             <>
+                <h1>{groupName}</h1>
                 <MaterialTable
                     items={items}
                     handleModalOpen={this.handleOpen}
