@@ -18,7 +18,7 @@ class DeleteCollectionModal extends React.Component {
     }
 
     render() {
-        const { isOpen, isClosed, collectionName } = this.props;
+        const { isOpen, isClosed, collection, onSubmit } = this.props;
         return (
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -30,9 +30,12 @@ class DeleteCollectionModal extends React.Component {
                     <h3>Are you sure?</h3>
                     <button onClick={isClosed}>close</button>
                 </header>
-                <p>Are you sure you'd like to delete the {collectionName} collection?</p>
+                <p>Are you sure you'd like to delete the {collection.name} collection?</p>
                 <p>This will permanently delete this collection and all of its items</p>
-
+                <div>
+                    <button onClick={isClosed}>Cancel</button>
+                    <button onClick={() => onSubmit(collection._id)}>Delete</button>
+                </div>
             </Modal>
         );
     }

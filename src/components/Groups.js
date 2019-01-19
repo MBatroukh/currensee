@@ -9,7 +9,7 @@ class Collections extends Component {
     state = {
         collections: [],
         open: false,
-        collectionName: "",
+        collection: {},
     }
 
     handleOpen = () => {
@@ -32,23 +32,27 @@ class Collections extends Component {
     getCollections = async () => {
         try {
             const res = await axios.get(`/groups`)
-            this.setState({ collections: res.data.data })
+            const data = res.data.data
+            this.setState({ collections: data })
         } catch (e) {
             console.log(e)
         }
     }
 
-    openDeleteCollectionModal = (collectionName) => {
+    openDeleteCollectionModal = (collection) => {
         this.setState({
             deleteCollectionModal: true,
-            collectionName
+            collection
         })
     }
 
     deleteCollection = async id => {
-        // todo Need To Create modal to verify deletion of collection
         await axios.delete(`/groups/${id}`)
+        this.setState({
+            deleteCollectionModal: false,
+        })
         this.getCollections()
+        console.log("Deleted")
     }
 
     render() {
@@ -62,7 +66,7 @@ class Collections extends Component {
                                 id={collection._id}
                                 title={collection.name}
                                 description={collection.description}
-                                deleteCollection={() => this.openDeleteCollectionModal(collection.name)}
+                                deleteCollection={() => this.openDeleteCollectionModal(collection)}
                             />
                         </Grid>
                     ))}
@@ -83,7 +87,8 @@ class Collections extends Component {
                 <DeleteCollectionModal
                     isClosed={this.handleClose}
                     isOpen={this.state.deleteCollectionModal}
-                    collectionName={this.state.collectionName}
+                    onSubmit={this.deleteCollection}
+                    collection={this.state.collection}
                 />
             </>
             // {/* {console.log(collections)} */}
