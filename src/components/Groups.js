@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import CollectionCard from './Card'
 import Grid from '@material-ui/core/Grid';
-import SimpleModal from './Modal'
+import SimpleModal from './Modal';
+import DeleteCollectionModal from './modals/DeleteCollectionModal'
 
 class Collections extends Component {
     state = {
         collections: [],
         open: false,
+        collectionName: "",
     }
 
     handleOpen = () => {
@@ -16,7 +18,10 @@ class Collections extends Component {
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({
+            open: false,
+            deleteCollectionModal: false,
+        });
         console.log("Closed")
     };
 
@@ -31,6 +36,13 @@ class Collections extends Component {
         } catch (e) {
             console.log(e)
         }
+    }
+
+    openDeleteCollectionModal = (collectionName) => {
+        this.setState({
+            deleteCollectionModal: true,
+            collectionName
+        })
     }
 
     deleteCollection = async id => {
@@ -50,7 +62,7 @@ class Collections extends Component {
                                 id={collection._id}
                                 title={collection.name}
                                 description={collection.description}
-                                deleteCollection={this.deleteCollection}
+                                deleteCollection={() => this.openDeleteCollectionModal(collection.name)}
                             />
                         </Grid>
                     ))}
@@ -67,6 +79,11 @@ class Collections extends Component {
                     isClosed={this.handleClose}
                     isOpen={this.state.open}
                     getCollections={this.getCollections()}
+                />
+                <DeleteCollectionModal
+                    isClosed={this.handleClose}
+                    isOpen={this.state.deleteCollectionModal}
+                    collectionName={this.state.collectionName}
                 />
             </>
             // {/* {console.log(collections)} */}
