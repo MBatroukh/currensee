@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import CollectionCard from './Card'
 import Grid from '@material-ui/core/Grid';
-import SimpleModal from './Modal'
+import SimpleModal from './Modal';
+import DeleteCollectionModal from './modals/DeleteCollectionModal'
 
 class Collections extends Component {
     state = {
         collections: [],
         open: false,
+        collection: {},
+        fetched: false,
     }
 
     handleOpen = () => {
@@ -16,8 +19,10 @@ class Collections extends Component {
     };
 
     handleClose = () => {
-        this.setState({ open: false });
-        console.log("Closed")
+        this.setState({
+            open: false,
+            deleteCollectionModal: false,
+        });
     };
 
     componentDidMount() {
@@ -27,15 +32,25 @@ class Collections extends Component {
     getCollections = async () => {
         try {
             const res = await axios.get(`/groups`)
-            this.setState({ collections: res.data.data })
+            const data = await res.data.data
+            this.setState({ collections: data, fetched: true })
         } catch (e) {
             console.log(e)
         }
     }
 
+    openDeleteCollectionModal = (collection) => {
+        this.setState({
+            deleteCollectionModal: true,
+            collection
+        })
+    }
+
     deleteCollection = async id => {
-        // todo Need To Create modal to verify deletion of collection
         await axios.delete(`/groups/${id}`)
+        this.setState({
+            deleteCollectionModal: false,
+        })
         this.getCollections()
     }
 
@@ -50,7 +65,7 @@ class Collections extends Component {
                                 id={collection._id}
                                 title={collection.name}
                                 description={collection.description}
-                                deleteCollection={this.deleteCollection}
+                                deleteCollection={() => this.openDeleteCollectionModal(collection)}
                             />
                         </Grid>
                     ))}
@@ -67,6 +82,12 @@ class Collections extends Component {
                     isClosed={this.handleClose}
                     isOpen={this.state.open}
                     getCollections={this.getCollections()}
+                />
+                <DeleteCollectionModal
+                    isClosed={this.handleClose}
+                    isOpen={this.state.deleteCollectionModal}
+                    onSubmit={this.deleteCollection}
+                    collection={this.state.collection}
                 />
             </>
             // {/* {console.log(collections)} */}

@@ -11,7 +11,7 @@ class Modals extends React.Component {
     };
 
     render() {
-        const { isOpen, isClosed, children } = this.props;
+        const { isOpen, isClosed, children, header } = this.props;
 
         return (
             <Modal
@@ -20,7 +20,7 @@ class Modals extends React.Component {
                 open={isOpen}
                 onClose={isClosed}
             >
-                <Paper>
+                <Paper header={header}>
                     {children}
                     <SimpleModalWrapped />
                 </Paper>
@@ -38,6 +38,12 @@ const Paper = styled.div`
     background-color: #ecf0f1;
     padding: 20px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    ${props => props.header && `
+        padding: 0 0 20px;
+        p{
+            padding: 0 15px;
+        }
+    `};
 `;
 
 
