@@ -10,6 +10,7 @@ class Collections extends Component {
         collections: [],
         open: false,
         collection: {},
+        fetched: false,
     }
 
     handleOpen = () => {
@@ -22,7 +23,6 @@ class Collections extends Component {
             open: false,
             deleteCollectionModal: false,
         });
-        console.log("Closed")
     };
 
     componentDidMount() {
@@ -32,8 +32,8 @@ class Collections extends Component {
     getCollections = async () => {
         try {
             const res = await axios.get(`/groups`)
-            const data = res.data.data
-            this.setState({ collections: data })
+            const data = await res.data.data
+            this.setState({ collections: data, fetched: true })
         } catch (e) {
             console.log(e)
         }
@@ -52,7 +52,6 @@ class Collections extends Component {
             deleteCollectionModal: false,
         })
         this.getCollections()
-        console.log("Deleted")
     }
 
     render() {

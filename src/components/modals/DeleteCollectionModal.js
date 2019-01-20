@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../index.css'
 import Modal from '../ModalS'
-// import styled from 'styled-components'
+import styled from 'styled-components'
 // import axios from 'axios'
 
 class DeleteCollectionModal extends React.Component {
@@ -25,20 +25,58 @@ class DeleteCollectionModal extends React.Component {
                 aria-describedby="simple-modal-description"
                 isOpen={isOpen}
                 onClose={isClosed}
+                header
             >
-                <header>
+                <ModalHeader>
                     <h3>Are you sure?</h3>
-                    <button onClick={isClosed}>close</button>
-                </header>
-                <p>Are you sure you'd like to delete the {collection.name} collection?</p>
+                    <button onClick={isClosed}>&times;</button>
+                </ModalHeader>
+                <p>Are you sure you'd like to delete the '{collection.name}' collection?</p>
                 <p>This will permanently delete this collection and all of its items</p>
-                <div>
+                <ButtonBar>
                     <button onClick={isClosed}>Cancel</button>
                     <button onClick={() => onSubmit(collection._id)}>Delete</button>
-                </div>
+                </ButtonBar>
             </Modal>
         );
     }
 }
+
+const ModalHeader = styled.div`
+     background: #2980b9;
+     color: #fff;
+     display: flex;
+     justify-content: space-between;
+     h3{
+         margin: 0;
+         padding: 15px;
+         
+     }
+    button{
+        color: #fff;
+        background: transparent;
+        border: none;
+        font-size: 35px;
+        padding: 0 15px;
+    }
+`;
+
+const ButtonBar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    button{
+        border: none;
+        background: #f1c40f;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 15px;
+        border-radius: 3px;
+
+        &:nth-child(2){
+            background: #c0392b;
+        }
+    }
+`;
 
 export default DeleteCollectionModal;
