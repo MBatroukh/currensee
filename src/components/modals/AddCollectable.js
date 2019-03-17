@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Countries from '../Countries.js';
 
 class SimpleModal extends React.Component {
     state = {
@@ -25,6 +26,7 @@ class SimpleModal extends React.Component {
     }
 
     handleChange = (field, value) => {
+        console.log(field, value)
         this.setState({
             [field]: value
         })
@@ -121,14 +123,15 @@ class SimpleModal extends React.Component {
                             </InputItem>
                         </Row>
                         <InputItem>
-                            <TextField
+                            <Countries onChange={(e) => this.handleChange("country", e.target.value)} />
+                            {/* <TextField
                                 fullWidth
                                 id="standard-dense"
                                 label="Country"
                                 className="textField dense"
                                 name="country"
                                 onChange={(e) => this.handleChange("country", e.target.value)}
-                            />
+                            /> */}
                         </InputItem>
                         <Row>
                             <InputItem className="third">
@@ -195,6 +198,9 @@ const InputItem = styled.div`
     .dense{
         margin-top: 19px;
         margin-bottom: 5px;
+    }
+    div{
+        width: 100%;
     }
 `;
 
