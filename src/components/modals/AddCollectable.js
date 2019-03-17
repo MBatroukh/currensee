@@ -3,6 +3,8 @@ import '../../index.css'
 import Modal from '../ModalS'
 import styled from 'styled-components'
 import axios from 'axios'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class SimpleModal extends React.Component {
     state = {
@@ -98,37 +100,81 @@ class SimpleModal extends React.Component {
                         </InputItem>
                         <Row>
                             <InputItem className="third">
-                                <label for="year">Year:</label>
-                                <input id="year" name="year" type="text" placeholder="Year" onChange={(e) => this.handleChange("year", e.target.value)} />
+                                <TextField
+                                    fullWidth
+                                    id="standard-dense"
+                                    label="Year"
+                                    className="textField dense"
+                                    name="year"
+                                    onChange={(e) => this.handleChange("year", e.target.value)}
+                                />
                             </InputItem>
                             <InputItem className="twoThirds">
-                                <label for="name">Name:</label>
-                                <input id="name" name="name" type="text" placeholder="Name" onChange={(e) => this.handleChange("name", e.target.value)} />
+                                <TextField
+                                    fullWidth
+                                    id="standard-dense"
+                                    label="Name"
+                                    className="textField dense"
+                                    name="name"
+                                    onChange={(e) => this.handleChange("name", e.target.value)}
+                                />
                             </InputItem>
                         </Row>
                         <InputItem>
-                            <label for="country">Country:</label>
-                            <input id="name" name="country" type="text" placeholder="Country" onChange={(e) => this.handleChange("country", e.target.value)} />
+                            <TextField
+                                fullWidth
+                                id="standard-dense"
+                                label="Country"
+                                className="textField dense"
+                                name="country"
+                                onChange={(e) => this.handleChange("country", e.target.value)}
+                            />
                         </InputItem>
                         <Row>
                             <InputItem className="third">
-                                <label for="denomination">Denomination:</label>
-                                <input id="denomination" name="denomination" type="text" placeholder="Denomination (ex. 0.25)" onChange={(e) => this.handleChange("denomination", e.target.value)} />
+                                <TextField
+                                    fullWidth
+                                    id="standard-dense"
+                                    label="Denomination"
+                                    className="textField dense"
+                                    name="denomination"
+                                    onChange={(e) => this.handleChange("denomination", e.target.value)}
+                                />
                             </InputItem>
                             <InputItem className="third">
-                                <label for="measurements">Measurements:</label>
-                                <input id="measurements" name="measurement" type="text" placeholder="Measurement" onChange={(e) => this.handleChange("measurement", e.target.value)} />
+
+                                <TextField
+                                    fullWidth
+                                    id="standard-dense"
+                                    label="Measurement"
+                                    className="textField dense"
+                                    name="measurement"
+                                    onChange={(e) => this.handleChange("measurement", e.target.value)}
+                                />
                             </InputItem>
                             <InputItem className="third">
-                                <label for="weight">Weight:</label>
-                                <input id="weight" name="weight" type="text" placeholder="Weight" onChange={(e) => this.handleChange("weight", e.target.value)} />
+                                <TextField
+                                    fullWidth
+                                    id="standard-dense"
+                                    label="Weight"
+                                    className="textField dense"
+                                    name="weight"
+                                    onChange={(e) => this.handleChange("weight", e.target.value)}
+                                />
                             </InputItem>
                         </Row>
                         <InputItem>
-                            <label for="notes">Notes:</label>
-                            <textarea id="notes" name="note" placeholder="A breif note about the this item" onChange={(e) => this.handleChange("note", e.target.value)} />
+                            <TextField
+                                fullWidth
+                                id="standard-dense"
+                                label="Notes"
+                                className="textField dense"
+                                name="note"
+                                multiline
+                                onChange={(e) => this.handleChange("note", e.target.value)}
+                            />
                         </InputItem>
-                        <button onClick={() => this.handleSubmit()}>Submit</button>
+                        <Button size="large" color="primary" variant="contained" onClick={() => this.handleSubmit()}>Submit</Button>
                         {/* WWWWWWWWWWWWWWWT5R5E423E6YG54TFRD3ESW2yeds\fe3333333333333333333sabccccccccccccx  44444444444444f */}
                     </div>
                 </Coin>
@@ -145,18 +191,10 @@ const Row = styled.div`
 
 const InputItem = styled.div`
     width: 100%;
-    label{
-        padding: 5px 0;
-    }
-    select, input, textarea{
-        width: 100%;
-        padding: 5px;
-    }
-    &.third{
-        width: 30%;
-    }
-    &.twoThirds{
-        width: 67.5%;
+    padding: 0 10px;
+    .dense{
+        margin-top: 19px;
+        margin-bottom: 5px;
     }
 `;
 
@@ -186,6 +224,10 @@ const Coin = styled.div`
         label{
             width: 100%;
             display: block;
+        }
+        button{
+            margin-top: 15px;
+            width: 100%;
         }
     }
     p{
