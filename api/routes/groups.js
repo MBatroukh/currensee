@@ -36,9 +36,10 @@ router.get('/:group_id', async (req, res, next) => {
 
     try {
         // 2. look up a user by that is
-        const doc = await Group.findById(groupId).populate('collectables')
+        // const doc = await Group.findById(groupId).populate('collectables')
+        const doc = await Group.findById(groupId);
 
-        // 3. If we fins that specific user, send back 200 + the user doc
+        // 3. If we find that specific user, send back 200 + the user doc
         res.status(200).send({
             data: [doc]
         })

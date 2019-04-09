@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import CollectionCard from './Card'
-import Grid from '@material-ui/core/Grid';
+import CollectionTile from './CollectionTile';
+import styled from "styled-components";
+// import Grid from '@material-ui/core/Grid';
 import SimpleModal from './Modal';
 import DeleteCollectionModal from './modals/DeleteCollectionModal'
 
@@ -58,25 +59,21 @@ class Collections extends Component {
         const { collections } = this.state
         return (
             <>
-                <Grid container spacing={24}>
+                <AllCollections>
                     {collections.map(collection => (
-                        <Grid item xs={4} key={collection._id}>
-                            <CollectionCard
+                            <CollectionTile
                                 id={collection._id}
                                 title={collection.name}
                                 description={collection.description}
                                 deleteCollection={() => this.openDeleteCollectionModal(collection)}
                             />
-                        </Grid>
                     ))}
-                    <Grid item xs={4}>
-                        <CollectionCard
-                            title="Add a Collection"
-                            handleModalOpen={this.handleOpen}
-                            addCollection
-                        />
-                    </Grid>
-                </Grid>
+                    <CollectionTile
+                        title="Add a Collection"
+                        handleModalOpen={this.handleOpen}
+                        addCollection
+                    />
+                </AllCollections>
                 <SimpleModal
                     addCollection
                     isClosed={this.handleClose}
@@ -95,5 +92,9 @@ class Collections extends Component {
         )
     }
 }
+
+const AllCollections = styled.div`
+    display: flex;
+`;
 
 export default Collections
