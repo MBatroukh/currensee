@@ -21,7 +21,7 @@ import ViewModule from '@material-ui/icons/ViewModule';
 import Eject from '@material-ui/icons/Eject';
 
 import Groups from '../components/Groups'
-import Group from '../components/Group'
+import {Group} from '../components'
 import AddCollectableModal from '../components/modals/AddCollectable'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 

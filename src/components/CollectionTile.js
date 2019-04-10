@@ -1,25 +1,22 @@
 import React from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import {Button} from '../components';
 
 const CollectionTile = (props) => (
     <CardWrapper>
         <div className="imgWrap">
             <img src="/images/collection-fallback.jpg" alt="Pile of coins" />
+            <h2>{props.title}</h2>
         </div>
-        <h2>{props.title}</h2>
-        {props.description && <p>{props.description}</p>}
+        {props.description ? <p>{props.description}</p> : <p><em>No description provided</em></p>}
         <div className="buttonRow">
             {!props.addCollection ?
                 <>
                     <Link to={`/groups/${props.id}`}>
-                        <button size="small" color="primary">
-                            View Collection
-                        </button>
+                        <Button text="View Collection" />
                     </Link>
-                    <button size="small" color="primary" onClick={() => props.deleteCollection(props.id)}>
-                        Remove Collection
-                    </button>
+                    <Button text="Remove Collection" onClick={() => props.deleteCollection(props.id)} />
                 </>
                 :
                 <button size="small" color="primary" onClick={props.handleModalOpen}>
@@ -32,12 +29,22 @@ const CollectionTile = (props) => (
 
 const CardWrapper = styled.div`
     display: flex;
+    background: #f5f5f5;
+    overflow: hidden;
     flex-direction: column;
-    border: solid 1px black;
+    border: solid 1px #ccc;
     border-radius: 4px;
     width: 100%;
     max-width: 23.5%;
-    margin-right: 1.5%
+    margin-right: 1.5%;
+    transition: all 0.2s;
+    transform: scale(1);
+    box-shadow: 0px 5px 10px 0px rgba(204,204,204,1);
+    &:hover{
+        transform: scale(1.01);
+        transition: all 0.2s;
+        box-shadow: 0px 10px 10px 0px rgba(204,204,204,1);
+    }
     .imgWrap{
         max-height: 100px;
         overflow: hidden;
@@ -58,11 +65,12 @@ const CardWrapper = styled.div`
         }
     }
     h2{
-        position: relative;
+        position: absolute;
         padding-left: 10px; 
-        margin-top: -42px;
-        margin-bottom: 10px;
+        margin: 0;
         color: #ffffff;
+        bottom: 10px;
+        z-index: 1;
     }
     p{
         padding: 0 10px;
@@ -75,6 +83,10 @@ const CardWrapper = styled.div`
         width: 100%;
         justify-content: space-between;
         padding: 10px;
+        flex-grow: 1;
+        div, a{
+            align-self: flex-end;
+        }
     }
 `;
 
